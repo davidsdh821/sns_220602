@@ -23,5 +23,8 @@ public class UserRestController {
 		
 		return userBO.getUserList();
 	}
+	
+	
+	
 	 
 }
