@@ -11,5 +11,10 @@ public interface UserDAO {
 
 	public List<User> SelectUserList();
 	
+	public boolean selectUserId(String loginId);
+	
+	public void insertUser(String loginId, String password, String name, String email);
+	
+	
 	
 }

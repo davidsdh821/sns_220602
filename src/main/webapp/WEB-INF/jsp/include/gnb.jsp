@@ -9,7 +9,7 @@
 		<%-- session 정보가 있을 때만 출력 --%>
 		<c:if test="${not empty userName}">
 		<div class="mt-5 mr-4">
-			<span class="text-white">님 안녕하세요</span>
+			<span class="text-white">${userName}님 안녕하세요</span>
 			<a href="/user/sign_out" class="ml-2 text-white font-weight-bold">로그아웃</a>
 		</div>
 		</c:if>

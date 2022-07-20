@@ -12,5 +12,39 @@
 	
 	</select>
 	
+	<select id="selectUserId" resultType="boolean">
+		SELECT 
+			COUNT(*)
+		FROM
+			`user`
+		WHERE 
+			`loginId` = #{loginId}		
+	
+	</select>
+	
+	
+	<insert id="insertUser" parameterType="map">
+		INSERT 
+			`user`
+			(
+			`loginId`
+			,`password`
+			,`name`
+			,`email`
+			,`createdAt`
+			,`updatedAt`
+			)
+		VALUES
+			(
+			#{loginId}
+			,#{password}
+			,#{name}
+			,#{email}
+			,NOW()
+			,NOW()	
+			)				
+	</insert>
+	
+	
 	
 </mapper> 

@@ -25,7 +25,7 @@
 			<jsp:include page="../include/gnb.jsp" />
 		</header>
 		<section>
-			<jsp:include page="../user/sign_up.jsp" />
+			<jsp:include page="../${viewName}.jsp" />
 		</section>
 		
 	

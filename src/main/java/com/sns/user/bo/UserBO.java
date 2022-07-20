@@ -21,4 +21,14 @@ public class UserBO {
 		return userDAO.SelectUserList();
 	}
 	
+	public boolean getUserId(String loginId) {
+		
+		return userDAO.selectUserId(loginId);
+	}
+	
+	public void addUser(String loginId, String password, String name, String email) {
+		
+		userDAO.insertUser(loginId, password, name, email);
+	}
+	
 }

@@ -67,7 +67,7 @@ $(document).ready(function() {
 			 
 			 //ajax -  중복확인
 			 $.ajax({
-				url:"/user/is_duplicated_id"
+				url:"/user/is_dup"
 				,data:{"loginId":loginId}
 				
 			 	,success:function(data) {
