@@ -45,6 +45,21 @@
 			)				
 	</insert>
 	
+	<select id="selectUserData" resultType="com.sns.user.model.User"></select>
+		SELECT
+			`id` 
+			,`loginId`
+			,`password`
+			,`name`
+			,`email`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`user`
+		WHERE 
+			`loginId` = #{loginId} AND
+			`password` = #{password}	
+	
 	
 	
 </mapper> 

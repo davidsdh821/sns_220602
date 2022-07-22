@@ -1,8 +1,12 @@
 package com.sns.user;
 
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +33,7 @@ public class UserRestController {
 		return userBO.getUserList();
 	}
 	//중복확인
-	@RequestMapping("is_dup")
+	@RequestMapping("/is_dup")
 	public Map<String, Object> dup(
 			@RequestParam("loginId") String loginId
 			) {
@@ -71,7 +75,30 @@ public class UserRestController {
 	}
 	
 	//로그인
-//	@PostMapping("sign_in")
+	@PostMapping("sign_in")
+	public Map<String, Object> signIn(
+			@RequestParam("logigId") String loginId,
+			@RequestParam("password") String password,
+			HttpServletRequest request //세션에 저장
+			) {
+		//비밀번호 해싱
+		String encrypt = EncryptUtils.md5(password);
+		
+		//db insert
+		User user = userBO.getUserData(loginId, encrypt); //암호화된 비밀번호
+		//데이터가 db에 남기 때문에 암호화할 필요가 있다.(개발자들도 보면 안되기 때문에 암호화를 시켜주는 것이다)
+		
+		//세션에 남길 값 만들기
+		HttpSession session = request.getSession();
+		session.setAttribute("userId", user.getId());
+		session.setAttribute("loginId", user.getLoginId());
+		session.setAttribute("userName", user.getName());
+		
+		
+		//리턴
+		Map<String, Object> result = new HashMap<>();
+		return result;
+	}
 	
 	
 	

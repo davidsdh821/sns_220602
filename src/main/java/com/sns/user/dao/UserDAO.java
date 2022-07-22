@@ -16,5 +16,5 @@ public interface UserDAO {
 	public void insertUser(String loginId, String password, String name, String email);
 	
 	
-	
+	public User selectUserData(String loginId, String password);
 }

@@ -31,4 +31,10 @@ public class UserBO {
 		userDAO.insertUser(loginId, password, name, email);
 	}
 	
+	public User getUserData(String loginId, String password) { //비밀번호가 암호화 됬다는 것을 알려줄 필요가 없다
+		//어차피 서버로 보내지는 것이기 때문에 비밀번호를 가로 챌 수 가 없다(https기준)
+		return userDAO.selectUserData(loginId, password);
+	}
+	
+	
 }
