@@ -49,7 +49,7 @@ $(document).ready(function() {
 		//ajax호출 로그인은 폼방식이 유리하다
 		let url = $(this).attr("action");
 		let params = $(this).serialize(); //form태그에 있는 nama 값들을 qurey스트링으로 구성
-		consloe.log(url);
+		console.log(url);
 		
 		$.post(url, params) //위에 저장한 id와 password 함수를 써도 된다
 		.done(function(data) {
