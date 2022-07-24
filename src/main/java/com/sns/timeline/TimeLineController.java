@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TimeLineController {
 	//이 패키지에는 dao가 필요가 없다.
 	//bo는 필요하다.
-	//http:/localhost/user/sign_up_view
-	@RequestMapping("/timeline_view")
+	//http:/localhost/post/post_timeline_view
+	@RequestMapping("/post_timeline_view")
 	public String signup(Model model) {
 		
 		model.addAttribute("viewName", "post/timeline");

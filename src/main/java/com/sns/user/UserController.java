@@ -17,6 +17,7 @@ public class UserController {
 		return "template/layout";
 	}
 	
+	//http:/localhost/user/sign_in_view
 	@RequestMapping("/sign_in_view")
 	public String signin(Model model) {
 		

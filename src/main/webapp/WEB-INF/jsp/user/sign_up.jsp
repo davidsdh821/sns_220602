@@ -76,9 +76,11 @@ $(document).ready(function() {
 			 			return;
 			 		} else if (data.result == false){
 			 			 $('#idCheckOk').removeClass('d-none');
+			 			 return;
 			 			
 			 		} else {
 			 			alert("중복 체크에 실패했습니다");
+			 			
 			 		}
 			 	}
 			 		,error: function(e) {

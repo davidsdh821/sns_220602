@@ -45,7 +45,7 @@
 			)				
 	</insert>
 	
-	<select id="selectUserData" resultType="com.sns.user.model.User"></select>
+	<select id="selectUserData" resultType="com.sns.user.model.User">
 		SELECT
 			`id` 
 			,`loginId`
@@ -60,6 +60,5 @@
 			`loginId` = #{loginId} AND
 			`password` = #{password}	
 	
-	
-	
+	</select>
 </mapper> 

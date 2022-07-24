@@ -41,9 +41,10 @@ public class UserRestController {
 		
 		
 		boolean exist = userBO.getUserId(loginId);
+		System.out.println("#####" + exist);
 		
 		Map<String, Object> result = new HashMap<>();
- 		result.put("exist", exist);
+ 		result.put("result", exist);
 		
 		
 		
@@ -51,7 +52,7 @@ public class UserRestController {
 	}
 	
 	
-	@PostMapping("sign_up")
+	@PostMapping("/sign_up")
 	public Map<String, Object> signUp(
 			@RequestParam("loginId") String loginId,
 			@RequestParam("password") String password,
@@ -75,7 +76,7 @@ public class UserRestController {
 	}
 	
 	//로그인
-	@PostMapping("sign_in")
+	@PostMapping("/sign_in")
 	public Map<String, Object> signIn(
 			@RequestParam("logigId") String loginId,
 			@RequestParam("password") String password,
@@ -89,14 +90,20 @@ public class UserRestController {
 		//데이터가 db에 남기 때문에 암호화할 필요가 있다.(개발자들도 보면 안되기 때문에 암호화를 시켜주는 것이다)
 		
 		//세션에 남길 값 만들기
+		Map<String, Object> result = new HashMap<>();
+		if(user != null) { //성공
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", user.getId());
 		session.setAttribute("loginId", user.getLoginId());
 		session.setAttribute("userName", user.getName());
-		
+		result.put("result", "success");
+		} else {
+			result.put("errorMessage", "존재하지 않는 사용자입니다");
+		}
 		
 		//리턴
-		Map<String, Object> result = new HashMap<>();
+		
+		
 		return result;
 	}
 	
