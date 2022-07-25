@@ -77,19 +77,20 @@ public class UserRestController {
 	}
 	
 	//로그인
-	@ResponseBody
+
 	@PostMapping("/sign_in")
 	public Map<String, Object> signIn(
-			@RequestParam("logigId") String loginId,
+			@RequestParam("loginId") String loginId,
 			@RequestParam("password") String password,
 			HttpServletRequest request //세션에 저장
 			) {
 		//비밀번호 해싱
 		String encrypt = EncryptUtils.md5(password);
 		
-		//db insert
-		User user = userBO.getUserData(loginId, encrypt); //암호화된 비밀번호
+		//db 
+		User user = userBO.getUserData(loginId, password); //암호화된 비밀번호
 		//데이터가 db에 남기 때문에 암호화할 필요가 있다.(개발자들도 보면 안되기 때문에 암호화를 시켜주는 것이다)
+		
 		
 		//세션에 남길 값 만들기
 		Map<String, Object> result = new HashMap<>();

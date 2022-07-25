@@ -1,5 +1,7 @@
 package com.sns.user;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +26,16 @@ public class UserController {
 		model.addAttribute("viewName", "user/sign_in");
 		return "template/layout";
 	}
+	
+	
 	@RequestMapping("/sign_out")
-	public String signout() {
+	public String signout(HttpSession session) {
+		session.removeAttribute("userId");
+		session.removeAttribute("loginId");
+		session.removeAttribute("userName");
+	
 		
-		return "redirect:/user/sign_in";
+		return "redirect:/user/sign_in_view";
 	}
 	
 	
