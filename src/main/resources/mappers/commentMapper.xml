@@ -9,7 +9,7 @@
 			(
 				`postId`
 				,userId
-				,`content`	
+				,`comment`	
 				,`createdAt`
 				,`updatedAt`
 			)
@@ -17,11 +17,28 @@
 		(
 			#{postId}
 			,#{userId}
-			,#{content}
+			,#{comment}
 			,NOW()
 			,NOW()		
 		)
 
 	</insert>
+	
+	<select id="selectCommentListByPostId" parameterType="int" resultType="com.sns.comment.model.Comment">
+		SELECT
+		 	`id`
+		 	,`postId`
+			,userId
+			,`comment`	
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`comment`
+		WHERE
+			`postId` = #{postId}	
+	
+	
+	</select>
+	
 
 </mapper> 

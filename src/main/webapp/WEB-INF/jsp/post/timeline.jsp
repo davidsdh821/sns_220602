@@ -26,14 +26,14 @@
 			</div>
 		</div>
 
-		<c:forEach var="result" items="${result}" varStatus="status">
+		<c:forEach var="card" items="${cardViewList}" varStatus="status">
 			<%-- 타임라인 영역 --%>
 			<div class="timeline-box my-5">
 				<%-- 카드 마다 영역을 border로 나눔 --%>
 				<div class="card border rounded mt-3">
 					<%-- 글쓴이 아이디, 삭제를 위한 ...버튼 : 이 둘을 한 행에 멀리 떨어뜨려 나타내기 위해 d-flex, between --%>
 					<div class="p-2 d-flex justify-content-between">
-						<span class="font-weight-bold">${result.userId}</span>
+						<span class="font-weight-bold">${card.user.name}</span>
 
 						<%-- 삭제 모달을 뛰우기 위한 ... 버튼 --%>
 						<a href="#" class="more-btn"> <img
@@ -44,7 +44,8 @@
 
 					<%-- 카드 이미지 --%>
 					<div class="card-img">
-						<img src="${result.imagePath}" class="w-100" alt="이미지">
+						<%-- 카드의 크기는 css로 따로 지정해야한다 --%>
+						<img src="${card.post.imagePath}" class="imgbox" alt="이미지">
 					</div>
 
 					<%-- 좋아요 --%>
@@ -57,7 +58,7 @@
 
 					<%-- 글(post) --%>
 					<div class="card-post m-3">
-						<span class="font-weight-bold">${result.userId}</span> <span>${result.content}</span>
+						<span class="font-weight-bold">${card.user.name}</span> <span>${card.post.content}</span>
 					</div>
 
 					<%-- 댓글(comment) --%>
@@ -77,10 +78,13 @@
 							</a>
 						</div>
 						<%-- 댓글 쓰기 --%>
+						<c:if test="${not empty userId}">
 						<div class="comment-writebox d-flex">
 							<input type="text" class="form-control">
-						<button type="button" class="comment-btn btn btn-primary" data-post-id="${result.id}">게시</button>
+						<button type="button" class="comment-btn btn btn-primary" data-post-id="${card.post.id}">게시</button>
 					</div>
+					</c:if>
+					
 					</div>
 				</div>
 
@@ -106,10 +110,10 @@ $(document).ready(function() {
 						let arr = fileName.split(".");
 						//확장자 검증
 						if (arr.length < 2
-								|| (arr[arr.length - 1] != 'gif'
+								|| (arr[arr.length - 1].toLowerCase() != 'gif'
 										&& // arr[arr.length - 1]이 구문이 확장자 명이다
-										arr[arr.length - 1] != 'jpg'
-										&& arr[arr.length - 1] != 'jpeg' && arr[arr.length - 1] != 'PNG')) { //2보다 작으면 뭔가가 잘못 된 것이다.
+										arr[arr.length - 1].toLowerCase() != 'jpg'
+										&& arr[arr.length - 1].toLowerCase() != 'jpeg' && arr[arr.length - 1].toLowerCase() != 'png')) { //2보다 작으면 뭔가가 잘못 된 것이다.
 							alert("이미지만 업로드 할 수 있습니다")
 							$(this).val(""); //파일을 비운다, 비우지 않으면 서버에 올라가 버린다
 							$('#fileName').text(""); //파일 이름도 비워줌
@@ -170,10 +174,10 @@ $(document).ready(function() {
 	$('.comment-btn').on('click', function() {
 		let postId = $(this).data('post-id'); //data-post-id
 		
-		let content = $(this).siblings("input").val().trim(); //형제 태그를 가져옴
+		let comment = $(this).siblings("input").val().trim(); //형제 태그를 가져옴
 		//즉 게시 버튼을 누르면 누른 버튼의 text 버튼의 값을 가져와준다
 	
-		if(content == "" ){
+		if(comment == "" ){
 			alert("내용을 입력해주세요");
 			return;
 		}
@@ -181,10 +185,10 @@ $(document).ready(function() {
 		$.ajax({
 			type: "post"
 			,url: "/comment/create"
-			,data: {"postId" : postId, "content" : content} 
+			,data: {"postId" : postId, "comment" : comment} 
 			, success: function(data) {
 				if (data.result2 == "success") {
-					location.reload();
+					location.reload(true);
 				} else {
 					alert(data.errorMessage);
 				}	

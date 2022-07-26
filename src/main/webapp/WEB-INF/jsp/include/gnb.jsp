@@ -8,6 +8,7 @@
 	
 	<div class="login-info">
 		<%-- session 정보가 있을 때만 출력 --%>
+		<a href="/user/sign_in_view">로그인</a>
 		<c:if test="${not empty userName}">
 		<div class="mt-5 mr-4">
 			<span class="text-white">${userName}님 안녕하세요</span>

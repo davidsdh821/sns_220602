@@ -36,5 +36,16 @@ public class UserBO {
 		return userDAO.selectUserData(loginId, password);
 	}
 	
+	public User getUserById(int id) {
+		
+		return userDAO.selectUserById(id);
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 }
