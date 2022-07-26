@@ -97,7 +97,7 @@ public class UserRestController {
 		if(user != null) { //성공
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", user.getId());
-		session.setAttribute("loginId", user.getLoginId());
+		session.setAttribute("userLoginId", user.getLoginId());
 		session.setAttribute("userName", user.getName());
 		result.put("result", "success");
 		} else {
