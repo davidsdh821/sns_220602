@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sns.comment.bo.CommentBO;
-import com.sns.comment.model.Comment;
+import com.sns.comment.model.CommentView;
 import com.sns.post.bo.PostBO;
 import com.sns.post.model.Post;
 import com.sns.timeline.model.CardView;
@@ -49,22 +49,16 @@ public class TimeLineBO {
 			//이곳에서는 오로지 데이터를 가져와 출력해주는 구조로 해줘야한다,
 			// 예List<Comment> List<CommentView>로 만들어주는 것은 CommentBO에서 해야한다
 			int postId = post.getId(); //글번호
-			List<Comment> commentList = commentBO.getCommentListByPostId(postId);
+			List<CommentView> commentList = commentBO.generateCommentViewListBy(postId);
 			
 			card.setCommentList(commentList);
+			
 			
 			//결과 리스트에 카드 저장
 			result.add(card);
 		
 		}
-		
 
-		
-		
-	
-		
-		
- 		
 		
 		
 		return result;

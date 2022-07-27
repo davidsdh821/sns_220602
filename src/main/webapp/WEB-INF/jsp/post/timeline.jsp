@@ -66,13 +66,15 @@
 						<div class="ml-3 mb-1 font-weight-bold">댓글</div>
 					</div>
 					<div class="card-comment-list m-2">
+					<c:forEach car="content" items="${card.commentList}">
 						<%-- 댓글 목록 --%>
 						<div class="card-comment m-1">
-							<span class="font-weight-bold">댓글쓰니 : </span> <span>댓글 내용</span>
+							<span class="font-weight-bold">${comment.user.name}: </span> 
+							<span>${comment.comment.content}</span>
 
 							<%-- 댓글 삭제 --%>
 							<a href="#" class="commentDelBtn"
-								data-comment-id="${commentView.comment.id}"> <img
+								data-comment-id=""> <img
 								src="https://www.iconninja.com/files/603/22/506/x-icon.png"
 								width="10px" height="10px">
 							</a>
@@ -84,6 +86,7 @@
 						<button type="button" class="comment-btn btn btn-primary" data-post-id="${card.post.id}">게시</button>
 					</div>
 					</c:if>
+					</c:forEach>
 					
 					</div>
 				</div>

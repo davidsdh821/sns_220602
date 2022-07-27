@@ -2,14 +2,14 @@ package com.sns.timeline.model;
 
 import java.util.List;
 
-import com.sns.comment.model.Comment;
+import com.sns.comment.model.CommentView;
 import com.sns.post.model.Post;
 import com.sns.user.model.User;
 
 public class CardView {
 	private User user; //글쓴이 ${card.user.name}
 	private Post post; // 글 내용 ${card.post.userId}
-	private List<Comment> commentList; //댓글 내용 ${card.commentList.comment.comment}
+	private List<CommentView> commentList; //댓글 내용 ${card.commentList.comment.comment}
 	public User getUser() {
 		return user;
 	}
@@ -22,10 +22,10 @@ public class CardView {
 	public void setPost(Post post) {
 		this.post = post;
 	}
-	public List<Comment> getCommentList() {
+	public List<CommentView> getCommentList() {
 		return commentList;
 	}
-	public void setCommentList(List<Comment> commentList) {
+	public void setCommentList(List<CommentView> commentList) {
 		this.commentList = commentList;
 	}
 	
