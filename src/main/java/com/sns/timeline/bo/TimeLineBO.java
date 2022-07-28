@@ -29,7 +29,7 @@ public class TimeLineBO {
 	private UserBO userBO;
 	
 	
-	public List<CardView> generateCardViewList() {
+	public List<CardView> generateCardViewList(Integer userId) {
 		List<CardView> result = new ArrayList<>();
 		
 		
@@ -52,6 +52,14 @@ public class TimeLineBO {
 			List<CommentView> commentList = commentBO.generateCommentViewListBy(postId);
 			
 			card.setCommentList(commentList);
+			
+			//내가 좋아요 한지 여부
+
+			
+			//좋아요의 개수
+			
+			
+			
 			
 			
 			//결과 리스트에 카드 저장

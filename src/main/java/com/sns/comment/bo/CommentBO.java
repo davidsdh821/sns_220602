@@ -48,7 +48,7 @@ public class CommentBO {
 			
 			//댓글 쓴이
 			int userId = comment.getUserId();
-			User user = userBO.getUserById(postId);
+			User user = userBO.getUserById(userId);
 			commentView.setUser(user);
 			
 			//결과 리스트에 넣기

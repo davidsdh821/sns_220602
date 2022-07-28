@@ -2,6 +2,8 @@ package com.sns.timeline;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +26,14 @@ public class TimeLineController {
 	//bo는 필요하다.
 	//http:/localhost/post/post_timeline_view
 	@RequestMapping("/post_timeline_view")
-	public String timeline(Model model) {
+	public String timeline(Model model, HttpSession session) {
 //		List<Post> postList = postBO.getPost();
 //		model.addAttribute("result", postList); 
-		List<CardView> cardViewList = timelineBO.generateCardViewList();
+		//bo한테 데이터를 넣을때 필요한 값만 넣자
+
+		List<CardView> cardViewList = timelineBO.generateCardViewList((Integer) session.getAttribute("userId"));
 		model.addAttribute("cardViewList", cardViewList);
+		
 		
 		
 		model.addAttribute("viewName", "post/timeline"); 

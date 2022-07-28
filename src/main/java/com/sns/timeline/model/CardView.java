@@ -10,6 +10,8 @@ public class CardView {
 	private User user; //글쓴이 ${card.user.name}
 	private Post post; // 글 내용 ${card.post.userId}
 	private List<CommentView> commentList; //댓글 내용 ${card.commentList.comment.comment}
+	private boolean like; //좋아요를 누른 여부
+	private int likeCount;
 	public User getUser() {
 		return user;
 	}
@@ -27,6 +29,18 @@ public class CardView {
 	}
 	public void setCommentList(List<CommentView> commentList) {
 		this.commentList = commentList;
+	}
+	public boolean isLike() {
+		return like;
+	}
+	public void setLike(boolean like) {
+		this.like = like;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 	
 	

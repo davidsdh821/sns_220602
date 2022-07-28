@@ -49,8 +49,9 @@
 					</div>
 
 					<%-- 좋아요 --%>
+					
 					<div class="card-like m-3">
-						<a href="#" class="like-btn"> <img
+						<a href="#" class="like-btn" data-post-id="${card.post.id}"> <img
 							src="https://www.iconninja.com/files/214/518/441/heart-icon.png"
 							width="18px" height="18px" alt="empty heart"> 좋아요 11개
 						</a>
@@ -66,11 +67,11 @@
 						<div class="ml-3 mb-1 font-weight-bold">댓글</div>
 					</div>
 					<div class="card-comment-list m-2">
-					<c:forEach car="content" items="${card.commentList}">
+					<c:forEach var="comment" items="${card.commentList}">
 						<%-- 댓글 목록 --%>
 						<div class="card-comment m-1">
 							<span class="font-weight-bold">${comment.user.name}: </span> 
-							<span>${comment.comment.content}</span>
+							<span>${comment.comment.comment}</span>
 
 							<%-- 댓글 삭제 --%>
 							<a href="#" class="commentDelBtn"
@@ -79,6 +80,7 @@
 								width="10px" height="10px">
 							</a>
 						</div>
+						</c:forEach>
 						<%-- 댓글 쓰기 --%>
 						<c:if test="${not empty userId}">
 						<div class="comment-writebox d-flex">
@@ -86,7 +88,7 @@
 						<button type="button" class="comment-btn btn btn-primary" data-post-id="${card.post.id}">게시</button>
 					</div>
 					</c:if>
-					</c:forEach>
+					
 					
 					</div>
 				</div>
@@ -206,6 +208,34 @@ $(document).ready(function() {
 		
 		
 	});
+	
+	$('.like-btn').on('click', function() {
+		let postId = $(this).data('post-id');
+		
+		$.ajax({
+			type: "post"
+			,url: "/like/" + postId
+			
+			,success: function(data) {
+				if(data.result == "success") {
+					location.reload(true);
+				} else {
+					alert(data.errorMessage);
+				}	
+				
+			}
+				
+			,error: function(e) {
+				alert("error" + e)
+			}
+			
+		});
+		
+		
+		
+	});
+	
+	
 	
 	
 	
