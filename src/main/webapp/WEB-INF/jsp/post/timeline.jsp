@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" href="/static/css/TimeLineStyle.css" >
 
 <div class="d-flex justify-content-center">
 	<div class="contents-box">
@@ -36,10 +37,13 @@
 						<span class="font-weight-bold">${card.user.name}</span>
 
 						<%-- 삭제 모달을 뛰우기 위한 ... 버튼 --%>
-						<a href="#" class="more-btn"> <img
+						<c:if test="${card.user.id eq userId}">
+						<%-- data-toggle과 data-target이 같이 있어야 한다 --%>
+						<a href="#" class="more-btn" data-toggle="modal" data-target="#moreModal" data-post-id="${card.post.id}"> <img
 							src="https://www.iconninja.com/files/860/824/939/more-icon.png"
 							width="30">
 						</a>
+						</c:if>
 					</div>
 
 					<%-- 카드 이미지 --%>
@@ -99,7 +103,32 @@
 
 
 	</div>
+
+	
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="moreModal">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      	<%-- modal 창 안에 내용 넣기 --%>
+      	<div class="text-center my-3">
+      		<%-- d-block 으로 영역 넓히기 --%>
+      		<a href="#" class ="del-post d-block">삭제하기</a>
+      	</div>
+
+      	
+      	<div class="text-center py-3 border-top">
+      		<%-- data-dismiss="modal" 모달창 닫힘--%>
+      		<a href="#" class="d-block" data-dismiss="modal">취소</a>
+      	</div>
+      	
+    </div>
+  </div>
+</div>
+
+
+
 
 <script>
 $(document).ready(function() {
@@ -176,7 +205,8 @@ $(document).ready(function() {
 									}
 								});
 					});
-	$('.comment-btn').on('click', function() {
+	$('.comment-btn').on('click', function(e) {
+		e.preventDefault();
 		let postId = $(this).data('post-id'); //data-post-id
 		
 		let comment = $(this).siblings("input").val().trim(); //형제 태그를 가져옴
@@ -209,7 +239,8 @@ $(document).ready(function() {
 		
 	});
 	
-	$('.like-btn').on('click', function() {
+	$('.like-btn').on('click', function(e) {
+		e.preventDefault();
 		let postId = $(this).data('post-id');
 		
 		$.ajax({
@@ -234,6 +265,45 @@ $(document).ready(function() {
 		
 		
 	});
+	
+	//...누를 때 modal에 삭제 글번호를 넣어준다
+	$(".more-btn").on('click', function(e) {
+		e.preventDefault(); //a 태그 기본 동작 중단(위로 올라가는 현상),태그에 #self를 붙여도 된다
+		let postId = $(this).data('post-id');
+		//alert(postId)
+		
+		//모달에 삭제될 글번호를 넣어준다. (모달은 재활용 되기 때문에 태그에넣지 말고 이곳에서 처리한다)
+		$('#moreModal').data('post-id', postId) //set 태그 data-post-id="2"를 넣어준다
+		
+	});
+	//모달 창 안에 있는 삭제하기 버튼 클릭했을 때
+	$("#moreModal .del-post").on('click', function(e) {
+		e.preventDefault();
+		let postId = $('#moreModal').data('post-id'); //위에서 저장한 데이터 가져옴
+		
+	
+		$.ajax({
+			type: "delete"
+			,url: "/post/delete"
+			,data: {"postId": postId}
+		
+			,success: function(data) {
+				if(data.result == "success") {
+					location.reload();
+				} else {
+					alert(data.errorMessage);
+				}
+			}
+			,error: function(e) {
+				alert("삭제 실패");
+			}
+		});
+		
+	});
+	
+	
+	
+	
 	
 	
 	

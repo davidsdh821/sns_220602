@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sns.comment.bo.CommentBO;
 import com.sns.comment.model.CommentView;
+import com.sns.like.bo.LikeBO;
 import com.sns.post.bo.PostBO;
 import com.sns.post.model.Post;
 import com.sns.timeline.model.CardView;
@@ -28,6 +29,8 @@ public class TimeLineBO {
 	@Autowired
 	private UserBO userBO;
 	
+	@Autowired
+	private LikeBO likeBO;
 	
 	public List<CardView> generateCardViewList(Integer userId) {
 		List<CardView> result = new ArrayList<>();
@@ -35,7 +38,7 @@ public class TimeLineBO {
 		
 		//글 목록을 가져온다
 		List<Post> postList = postBO.getPost();
-		for(Post post : postList) {
+		for(Post post : postList) { //가져온 글 목록의 개수만큼 반복문이 실행된다, 반복문에서 post를 만든다
 			CardView card = new CardView(); //반복문 안에 있어야 한다.
 			//글정보
 			card.setPost(post); //카드에 글 하나를 집어넣음
@@ -52,6 +55,7 @@ public class TimeLineBO {
 			List<CommentView> commentList = commentBO.generateCommentViewListBy(postId);
 			
 			card.setCommentList(commentList);
+			//구조를 조금만 더 살펴보자(이미 뼈대는 완성됬고 bo로 가져오면 되기 때문에 흐름만 찾으면 된다.)
 			
 			//내가 좋아요 한지 여부
 

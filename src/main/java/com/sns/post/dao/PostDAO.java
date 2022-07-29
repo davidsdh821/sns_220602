@@ -18,4 +18,8 @@ public interface PostDAO {
 	
 	public List<Post> selectPost(); 
 	
+	public Post selectPostBypPostId(int postId);
+	
+	public void deletePostByPostId(int postId);
+	
 }

@@ -3,12 +3,12 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sns.like.dao.LikeDAO">
 	
-	<select id="selectCountLike" parameterType="int" resultType="com.sns.like.model.Like">
+	<select id="selectCountLike" parameterType="int" resultType="int">
 			SELECT 
 				count(*) 
 			FROM 
 				`like`
-			WHERE `postId` =#{postId}	
+			WHERE `postId` = #{postId}	
 		
 	
 	
@@ -45,6 +45,12 @@
 			DELETE FROM `like`
 				WHERE `userId` = #{userId} 
 				AND `postId` = #{postId}
+
+	</delete>
+	
+	<delete id="deleteEveryLikeByPostId" parameterType="int">
+			DELETE FROM `like`
+				WHERE `postId` = #{postId}
 
 	</delete>
 	
