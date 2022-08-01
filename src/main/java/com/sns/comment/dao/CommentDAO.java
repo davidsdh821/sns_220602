@@ -19,4 +19,7 @@ public interface CommentDAO {
 	
 	public int deleteEveryCommentByPostId(int postId);
 	
+	
+	public void deleteCommentByCommentId(int commentId);
+	
 }

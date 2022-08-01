@@ -58,9 +58,12 @@ public class TimeLineBO {
 			//구조를 조금만 더 살펴보자(이미 뼈대는 완성됬고 bo로 가져오면 되기 때문에 흐름만 찾으면 된다.)
 			
 			//내가 좋아요 한지 여부
-
+			
+			
 			
 			//좋아요의 개수
+			int likeCount = likeBO.getCountLike(postId);
+			card.setLikeCount(likeCount);
 			
 			
 			

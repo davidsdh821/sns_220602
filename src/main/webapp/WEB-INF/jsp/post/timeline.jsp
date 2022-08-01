@@ -57,7 +57,7 @@
 					<div class="card-like m-3">
 						<a href="#" class="like-btn" data-post-id="${card.post.id}"> <img
 							src="https://www.iconninja.com/files/214/518/441/heart-icon.png"
-							width="18px" height="18px" alt="empty heart"> 좋아요 11개
+							width="18px" height="18px" alt="empty heart">	${card.likeCount}
 						</a>
 					</div>
 
@@ -78,11 +78,12 @@
 							<span>${comment.comment.comment}</span>
 
 							<%-- 댓글 삭제 --%>
-							<a href="#" class="commentDelBtn"
-								data-comment-id=""> <img
+							<c:if test="${comment.user.id eq userId}">
+							<a href="#" class="commentDelBtn" data-comment-id="${comment.comment.id}"> <img
 								src="https://www.iconninja.com/files/603/22/506/x-icon.png"
-								width="10px" height="10px">
+								width="10px" height="10px"> 
 							</a>
+							</c:if>
 						</div>
 						</c:forEach>
 						<%-- 댓글 쓰기 --%>
@@ -301,13 +302,34 @@ $(document).ready(function() {
 		
 	});
 	
+	$(".commentDelBtn").on('click', function(e) {
+		e.preventDefault();
+		let commentId = $(this).data("comment-id");
+		
+		$.ajax({
+			type:"delete"
+			,url: "/comment/delete"
+			,data : {"commentId" : commentId}
+		
+			,success: function(data) {
+				if(data.result == "success") {
+					location.reload();
+					
+				} else {
+					alert(data.errorMessage)
+					
+				}
+
+			}
+			,error: function(e) {
+				alert("삭제실패")
+			}
+ 			
+			
+		});
+
+	});
 	
-	
-	
-	
-	
-	
-	
-	
+
 });
 </script>
